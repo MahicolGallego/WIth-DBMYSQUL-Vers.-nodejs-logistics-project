@@ -1,6 +1,6 @@
 import { pool } from "../../config/db.js";
 
-export async function findAll(){
+export async function findAll() {
     try {
         const [warehouses] = await pool.query("SELECT * FROM warehouses");
         return warehouses;
@@ -12,11 +12,11 @@ export async function findAll(){
 export const findById = async (id) => {
     try {
         const [[warehouseFound]] = await pool.query("SELECT * FROM warehouses WHERE id = ?", [id]);
-        if(!warehouseFound){
+        if (!warehouseFound) {
             throw new Error("Error en la peticion");
         }
         return warehouseFound;
-    } catch (error) { 
+    } catch (error) {
         throw new Error("Warehouse not found", error);
     }
 }
@@ -31,6 +31,22 @@ export const save = async (warehouse) => {
     }
 }
 
-export const updateWarehouse = async(id, warehouse) => {
+export const updateWarehouse = async (id, newWarehouse) => {
+    try {
+        await findById(id);
+        const [warehouseUpdate] = await pool.query("UPDATE warehouses SET name = ?, location = ? WHERE id = ?", [newWarehouse.name, newWarehouses.location, id]);
+        const [[warehouseUpdated]] = await pool.query("SELECT * FROM warehouses WHERE id = ?", [warehouseUpdate.insertId]);
+        return warehouseUpdated;
+    } catch (error) {
+        throw new Error("Error en la peticion", error);
+    }
+}
 
+export const deleteWarehouse = async (id) => {
+    try {
+       await pool.query("DELETE FROM warehouses WHERE id = ?", [id]);
+       return "Delete successfully";
+   } catch (error) {
+       throw new Error("Error en la peticion", error);
+   }
 }
