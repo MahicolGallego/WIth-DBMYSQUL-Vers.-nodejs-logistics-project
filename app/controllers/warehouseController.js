@@ -25,14 +25,14 @@ export const insert = async (req, res) => {
 }
 
 export const update = async (req, res) => {
-    const {id} = res.params;
+    const {id} = req.params;
     const {name, location} = req.body;
-    const warehouseUpdated = updateWarehouse(id, {name, location});
-    res.status(200).json({ message: "ok", data: warehouseUpdated });
+    const warehouseUpdated = await updateWarehouse(id, {name, location});
+    res.status(200).json({message: warehouseUpdated})
 }
 
 export const deletes = async (req, res) => {
         const {id} = req.params;
-        await deleteWarehouse(id);
+        const deleteRequest = await deleteWarehouse(id);
         res.status(200).json({ message: deleteRequest });
 }

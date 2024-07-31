@@ -34,9 +34,9 @@ export const save = async (warehouse) => {
 export const updateWarehouse = async (id, newWarehouse) => {
     try {
         await findById(id);
-        const [warehouseUpdate] = await pool.query("UPDATE warehouses SET name = ?, location = ? WHERE id = ?", [newWarehouse.name, newWarehouses.location, id]);
-        const [[warehouseUpdated]] = await pool.query("SELECT * FROM warehouses WHERE id = ?", [warehouseUpdate.insertId]);
-        return warehouseUpdated;
+        await pool.query("UPDATE warehouses SET name = ?, location = ? WHERE id = ?", [newWarehouse.name, newWarehouse.location, id]);
+        //console.log(warehouseUpdate);
+        return "Updated successfully";
     } catch (error) {
         throw new Error("Error en la peticion", error);
     }
@@ -45,7 +45,7 @@ export const updateWarehouse = async (id, newWarehouse) => {
 export const deleteWarehouse = async (id) => {
     try {
        await pool.query("DELETE FROM warehouses WHERE id = ?", [id]);
-       return "Delete successfully";
+       return "Deleted successfully";
    } catch (error) {
        throw new Error("Error en la peticion", error);
    }
