@@ -2,20 +2,20 @@ import {findAll, findById, save, updateWarehouse, deleteWarehouse } from "../mod
 
 export const getAll = async (_, res) => {
     const warehouses = await findAll();
-    // console.log(warehouses);
+    //console.log(warehouses);
     res.status(200).json({ message: "ok", data: warehouses })
 }
 
-export const getSpecific = async (req, res) => {
+export const getById = async (req, res) => {
     const {id} = req.params;
     const warehouse = await findById(id);
-    console.log(warehouse);
+    //console.log(warehouse);
     res.json({ message: "Ok", data: warehouse })
 }
 
 export const insert = async (req, res) => {
     const { name, location } = req.body;
-    console.log(name, location);
+    //console.log(name, location);
     const warehouseCreated = await save({name, location});
 
     res.status(201).send({

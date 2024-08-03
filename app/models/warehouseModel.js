@@ -5,7 +5,7 @@ export async function findAll() {
         const [warehouses] = await pool.query("SELECT * FROM warehouses");
         return warehouses;
     } catch (error) {
-        throw new Error("Error en la peticion", error);
+        throw new Error("Error in the request", error);
     }
 }
 
@@ -13,7 +13,7 @@ export const findById = async (id) => {
     try {
         const [[warehouseFound]] = await pool.query("SELECT * FROM warehouses WHERE id = ?", [id]);
         if (!warehouseFound) {
-            throw new Error("Error en la peticion");
+            throw new Error("Error in the request");
         }
         return warehouseFound;
     } catch (error) {
@@ -27,7 +27,7 @@ export const save = async (warehouse) => {
         const [[warehouseCreated]] = await pool.query("SELECT * FROM warehouses WHERE id = ?", [resolve.insertId])
         return warehouseCreated;
     } catch (error) {
-        throw new Error("Error en la peticion", error);
+        throw new Error("Error in the request", error);
     }
 }
 
@@ -35,10 +35,9 @@ export const updateWarehouse = async (id, newWarehouse) => {
     try {
         await findById(id);
         await pool.query("UPDATE warehouses SET name = ?, location = ? WHERE id = ?", [newWarehouse.name, newWarehouse.location, id]);
-        //console.log(warehouseUpdate);
         return "Updated successfully";
     } catch (error) {
-        throw new Error("Error en la peticion", error);
+        throw new Error("Error in the request", error);
     }
 }
 
@@ -47,6 +46,6 @@ export const deleteWarehouse = async (id) => {
        await pool.query("DELETE FROM warehouses WHERE id = ?", [id]);
        return "Deleted successfully";
    } catch (error) {
-       throw new Error("Error en la peticion", error);
+       throw new Error("Error in the request", error);
    }
 }

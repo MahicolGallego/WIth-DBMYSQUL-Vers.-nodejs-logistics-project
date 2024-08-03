@@ -9,12 +9,12 @@ import mysql from 'mysql2/promise';
 //         password: 'K12t6CfNbzLcfyzwigKT',
 //     });
 //     const connection = await pool.getConnection();
-//     console.log("connection to DB successful")
+//     //console.log("connection to DB successful")
 //
 //     Liberar la conexión para que pueda ser reutilizada
 //     connection.release();
 // } catch (err) {
-//     console.log(err);
+//     //console.log(err);
 // }
 
 //Of Preferences ---------------------------------------
@@ -29,14 +29,14 @@ export const pool = mysql.createPool({
     password: 'K12t6CfNbzLcfyzwigKT',
 });
 
-async function getConnection() {
+export async function getConnection() {
     try {
         const connection = await pool.getConnection();
-        console.log("DB connection successful")
+        //console.log("DB connection successful")
         //connection.release();
         return connection;
     } catch (err) {
-        console.error("DB connection failed: ",err);
+        //console.error("DB connection failed: ",err);
     }
 }
 
